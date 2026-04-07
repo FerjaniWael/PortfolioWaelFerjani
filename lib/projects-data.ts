@@ -37,24 +37,20 @@ export const projects: Project[] = [
     demoVideo: "",
     videos: [
       {
-        title: "Media1",
-        url: "https://www.youtube.com/watch?v=lS3vAdGgqgY",
-        thumbnail: "/platform-overview.png",
+        title: "Media 1",
+        url: "https://www.youtube.com/embed/lS3vAdGgqgY?si=m1UCP2dJMvYF5uuy",
       },
       {
         title: "Media 2",
-        url: "https://www.youtube.com/watch?v=tfsg1q4QWWM",
-        thumbnail: "/coming-soon.png",
+        url: "https://www.youtube.com/embed/tfsg1q4QWWM?si=itH8TpEatl7-PPIQ",
       },
       {
         title: "Media 3",
-        url: "https://www.youtube.com/watch?v=PXKxg6UsPEk",
-        thumbnail: "/authentication-flow.png",
+        url: "https://www.youtube.com/embed/PXKxg6UsPEk?si=D6mBFn8nCbBElOhi",
       },
       {
         title: "Media 4",
-        url: "https://www.youtube.com/watch?v=zLosvpxT_FA",
-        thumbnail: "/deployment-setup.jpg",
+        url: "https://www.youtube.com/embed/zLosvpxT_FA?si=dlSOMkz5391uEtQ4",
       },
     ],
     github: "",

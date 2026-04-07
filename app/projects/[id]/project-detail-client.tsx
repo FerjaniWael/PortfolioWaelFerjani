@@ -9,6 +9,50 @@ import { ArrowLeft, Github, ExternalLink, ChevronLeft, ChevronRight, Play, X } f
 import { TechIcon } from "@/components/tech-icons"
 import type { Project } from "@/lib/projects-data"
 
+function getYouTubeVideoId(url: string): string | null {
+  try {
+    const parsedUrl = new URL(url)
+
+    if (parsedUrl.hostname.includes("youtube.com") && parsedUrl.pathname.includes("/embed/")) {
+      return parsedUrl.pathname.split("/embed/")[1]?.split("/")[0]?.split("?")[0] ?? null
+    }
+
+    if (parsedUrl.hostname.includes("youtube.com")) {
+      return parsedUrl.searchParams.get("v")
+    }
+
+    if (parsedUrl.hostname.includes("youtu.be")) {
+      return parsedUrl.pathname.replace("/", "")
+    }
+  } catch {
+    return null
+  }
+
+  return null
+}
+
+function getVideoThumbnail(url: string, thumbnail?: string): string {
+  if (thumbnail) {
+    return thumbnail
+  }
+
+  const videoId = getYouTubeVideoId(url)
+  if (videoId) {
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+  }
+
+  return "/placeholder.svg"
+}
+
+function getVideoEmbedUrl(url: string): string {
+  const videoId = getYouTubeVideoId(url)
+  if (videoId) {
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
+  }
+
+  return url
+}
+
 export default function ProjectDetailClient({ project }: { project: Project }) {
   const [currentScreenshot, setCurrentScreenshot] = useState(0)
   const [showVideo, setShowVideo] = useState(false)
@@ -165,7 +209,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                   >
                     <div className="aspect-video overflow-hidden relative bg-muted">
                       <img
-                        src={video.thumbnail || "/placeholder.svg"}
+                        src={getVideoThumbnail(video.url, video.thumbnail)}
                         alt={video.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
@@ -216,12 +260,13 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                   </button>
                 </div>
                 <div className="aspect-video bg-black">
-                  <video
-                    src={selectedVideo.url}
-                    controls
-                    autoPlay
+                  <iframe
+                    src={getVideoEmbedUrl(selectedVideo.url)}
+                    title={selectedVideo.title}
                     className="w-full h-full"
-                    controlsList="nodownload"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
                   />
                 </div>
               </div>
