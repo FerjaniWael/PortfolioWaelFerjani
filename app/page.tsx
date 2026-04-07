@@ -310,7 +310,7 @@ export default function Portfolio() {
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">GitHub</p>
-                      <p className="text-foreground">github.com/alexjohnson</p>
+                      <p className="text-foreground">github.com/FerjaniWael</p>
                     </div>
                   </div>
                 </div>

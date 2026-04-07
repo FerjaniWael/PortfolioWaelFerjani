@@ -73,6 +73,12 @@ export const projects: Project[] = [
     ],
     screenshots: ["/android-assistant-integration.jpg"],
     demoVideo: "",
+    videos: [
+      {
+        title: "Assistant Integration Demo",
+        url: "https://www.youtube.com/embed/T792c0s-2xo?si=7MYZcp-D8WvJJSug",
+      },
+    ],
     github: "",
     live: "",
     featured: false,
