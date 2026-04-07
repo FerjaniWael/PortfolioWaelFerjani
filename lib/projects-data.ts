@@ -71,7 +71,7 @@ export const projects: Project[] = [
       "Mobile UI/UX design",
       "App deployment & release management",
     ],
-    screenshots: ["/android-assistant-integration.jpg"],
+    screenshots: ["/AssistantIntegration.png", "/android-assistant-integration.jpg"],
     demoVideo: "",
     videos: [
       {

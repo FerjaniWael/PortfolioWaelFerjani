@@ -56,6 +56,7 @@ function getVideoEmbedUrl(url: string): string {
 export default function ProjectDetailClient({ project }: { project: Project }) {
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0)
   const [selectedVideo, setSelectedVideo] = useState<{ title: string; url: string } | null>(null)
+  const isProjectVersionManager = project.id === "project-version-manager"
 
   const heroMedia = [
     ...project.screenshots.map((screenshot, index) => ({
@@ -126,95 +127,96 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             <p className="text-xl text-muted-foreground max-w-3xl">{project.shortDescription}</p>
           </div>
 
-          {/* Screenshots Gallery / Video */}
-          <Card className="mb-12 bg-card/50 backdrop-blur-sm border-border/50 overflow-hidden">
-            <CardContent className="p-0">
-              <div className="relative">
-                {heroMedia.length > 0 && (
-                  <>
-                    {heroMedia[currentMediaIndex]?.type === "image" ? (
-                      <div className="aspect-video overflow-hidden">
-                        <img
-                          src={heroMedia[currentMediaIndex]?.src || "/placeholder.svg"}
-                          alt={heroMedia[currentMediaIndex]?.title || `${project.title} media`}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          setSelectedVideo({
-                            title: heroMedia[currentMediaIndex]?.title || "Project video",
-                            url: heroMedia[currentMediaIndex]?.src || "",
-                          })
-                        }
-                        className="w-full aspect-video overflow-hidden relative bg-muted"
-                      >
-                        <img
-                          src={getVideoThumbnail(heroMedia[currentMediaIndex]?.src || "")}
-                          alt={heroMedia[currentMediaIndex]?.title || "Project video"}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-                            <Play className="w-8 h-8 text-white ml-1" />
-                          </div>
+          {!isProjectVersionManager && (
+            <Card className="mb-12 bg-card/50 backdrop-blur-sm border-border/50 overflow-hidden">
+              <CardContent className="p-0">
+                <div className="relative">
+                  {heroMedia.length > 0 && (
+                    <>
+                      {heroMedia[currentMediaIndex]?.type === "image" ? (
+                        <div className="aspect-video overflow-hidden">
+                          <img
+                            src={heroMedia[currentMediaIndex]?.src || "/placeholder.svg"}
+                            alt={heroMedia[currentMediaIndex]?.title || `${project.title} media`}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
-                      </button>
-                    )}
-
-                    {/* Navigation buttons */}
-                    <button
-                      onClick={prevScreenshot}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
-                    >
-                      <ChevronLeft size={24} />
-                    </button>
-                    <button
-                      onClick={nextScreenshot}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
-                    >
-                      <ChevronRight size={24} />
-                    </button>
-
-                    {/* Dots indicator */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {heroMedia.map((_, index) => (
+                      ) : (
                         <button
-                          key={index}
-                          onClick={() => setCurrentMediaIndex(index)}
-                          className={`w-2 h-2 rounded-full transition-colors ${
-                            index === currentMediaIndex ? "bg-primary" : "bg-white/50"
-                          }`}
-                        />
-                      ))}
-                    </div>
+                          onClick={() =>
+                            setSelectedVideo({
+                              title: heroMedia[currentMediaIndex]?.title || "Project video",
+                              url: heroMedia[currentMediaIndex]?.src || "",
+                            })
+                          }
+                          className="w-full aspect-video overflow-hidden relative bg-muted"
+                        >
+                          <img
+                            src={getVideoThumbnail(heroMedia[currentMediaIndex]?.src || "")}
+                            alt={heroMedia[currentMediaIndex]?.title || "Project video"}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
+                              <Play className="w-8 h-8 text-white ml-1" />
+                            </div>
+                          </div>
+                        </button>
+                      )}
 
-                    {heroMedia[currentMediaIndex]?.type === "image" && currentMediaIndex > 0 && (
-                      <div className="absolute top-4 left-4">
-                        <Badge className="bg-secondary/80 text-secondary-foreground font-semibold">
-                          Figma Design Prototype
-                        </Badge>
+                      {/* Navigation buttons */}
+                      <button
+                        onClick={prevScreenshot}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
+                      >
+                        <ChevronLeft size={24} />
+                      </button>
+                      <button
+                        onClick={nextScreenshot}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
+                      >
+                        <ChevronRight size={24} />
+                      </button>
+
+                      {/* Dots indicator */}
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        {heroMedia.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentMediaIndex(index)}
+                            className={`w-2 h-2 rounded-full transition-colors ${
+                              index === currentMediaIndex ? "bg-primary" : "bg-white/50"
+                            }`}
+                          />
+                        ))}
                       </div>
-                    )}
 
-                    {heroMedia[currentMediaIndex]?.type === "video" && (
-                      <Badge className="absolute top-4 right-4 bg-primary/90 text-primary-foreground">Video</Badge>
-                    )}
-                  </>
-                )}
-                {heroMedia.length === 0 && (
-                  <div className="aspect-video overflow-hidden">
-                    <img
-                      src="/placeholder.svg"
-                      alt={`${project.title} media`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                      {heroMedia[currentMediaIndex]?.type === "image" && currentMediaIndex > 0 && (
+                        <div className="absolute top-4 left-4">
+                          <Badge className="bg-secondary/80 text-secondary-foreground font-semibold">
+                            Figma Design Prototype
+                          </Badge>
+                        </div>
+                      )}
+
+                      {heroMedia[currentMediaIndex]?.type === "video" && (
+                        <Badge className="absolute top-4 right-4 bg-primary/90 text-primary-foreground">Video</Badge>
+                      )}
+                    </>
+                  )}
+                  {heroMedia.length === 0 && (
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src="/placeholder.svg"
+                        alt={`${project.title} media`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {project.videos && project.videos.length > 0 && (
             <div className="mb-12">
@@ -361,12 +363,14 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                         View Source Code
                       </a>
                     </Button>
-                    <Button className="w-full bg-primary hover:bg-primary/90 justify-start" asChild>
-                      <a href={project.live} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-5 h-5 mr-3" />
-                        Visit Live Application
-                      </a>
-                    </Button>
+                    {!isProjectVersionManager && (
+                      <Button className="w-full bg-primary hover:bg-primary/90 justify-start" asChild>
+                        <a href={project.live} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="w-5 h-5 mr-3" />
+                          Visit Live Application
+                        </a>
+                      </Button>
+                    )}
                   </div>
                 </CardContent>
               </Card>
