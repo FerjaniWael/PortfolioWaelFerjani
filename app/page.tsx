@@ -1,12 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Mail, MapPin, Send, Github, GraduationCap, Calendar, Building } from "lucide-react"
+import { Mail, MapPin, Github, GraduationCap, Calendar, Building } from "lucide-react"
 import { TechIcon } from "@/components/tech-icons"
 import ProjectsSection from "@/components/projects-section"
 import { PortfolioNavigation } from "@/components/portfolio-navigation"
+import ContactForm from "@/components/contact-form"
 
 export default function Portfolio() {
 
@@ -88,7 +87,6 @@ export default function Portfolio() {
     {
       title: "Intern",
       company: "BFI Groupe",
-      logo: "/placeholder.svg",
       period: " January 2022 - May 2022",
       description: "Design and development of a web application for project version management",
     },
@@ -320,29 +318,7 @@ export default function Portfolio() {
             <Card className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-6 text-foreground">Send a Message</h3>
-                <form className="space-y-4">
-                  <div>
-                    <Input placeholder="Your Name" className="bg-background/50 border-border focus:border-primary" />
-                  </div>
-                  <div>
-                    <Input
-                      type="email"
-                      placeholder="Your Email"
-                      className="bg-background/50 border-border focus:border-primary"
-                    />
-                  </div>
-                  <div>
-                    <Textarea
-                      placeholder="Your Message"
-                      rows={4}
-                      className="bg-background/50 border-border focus:border-primary resize-none"
-                    />
-                  </div>
-                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Message
-                  </Button>
-                </form>
+                <ContactForm />
               </CardContent>
             </Card>
           </div>
