@@ -37,23 +37,23 @@ export const projects: Project[] = [
     demoVideo: "",
     videos: [
       {
-        title: "Platform Overview",
-        url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/media1-vOM8shina1XOlqSsBBRwa3wae36eCl.mp4",
+        title: "Media1",
+        url: "https://www.youtube.com/watch?v=lS3vAdGgqgY",
         thumbnail: "/platform-overview.png",
       },
       {
-        title: "Media 2 - Coming Soon",
-        url: "",
+        title: "Media 2",
+        url: "https://www.youtube.com/watch?v=tfsg1q4QWWM",
         thumbnail: "/coming-soon.png",
       },
       {
-        title: "Authentication Flow",
-        url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/media3-14h7LTzgpSZVOqUAKRdWaeuMPAdd62.mp4",
+        title: "Media 3",
+        url: "https://www.youtube.com/watch?v=PXKxg6UsPEk",
         thumbnail: "/authentication-flow.png",
       },
       {
-        title: "Deployment & Setup",
-        url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/media4-ECPFiFQFEejalJNkvhCkHH98O2Iuk4.mp4",
+        title: "Media 4",
+        url: "https://www.youtube.com/watch?v=zLosvpxT_FA",
         thumbnail: "/deployment-setup.jpg",
       },
     ],
