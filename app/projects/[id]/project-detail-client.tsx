@@ -54,16 +54,30 @@ function getVideoEmbedUrl(url: string): string {
 }
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
-  const [currentScreenshot, setCurrentScreenshot] = useState(0)
-  const [showVideo, setShowVideo] = useState(false)
+  const [currentMediaIndex, setCurrentMediaIndex] = useState(0)
   const [selectedVideo, setSelectedVideo] = useState<{ title: string; url: string } | null>(null)
 
+  const heroMedia = [
+    ...project.screenshots.map((screenshot, index) => ({
+      type: "image" as const,
+      src: screenshot,
+      title: `${project.title} screenshot ${index + 1}`,
+    })),
+    ...(project.videos ?? [])
+      .filter((video) => Boolean(video.url))
+      .map((video) => ({
+        type: "video" as const,
+        src: video.url,
+        title: video.title,
+      })),
+  ]
+
   const nextScreenshot = () => {
-    setCurrentScreenshot((prev) => (prev + 1) % project.screenshots.length)
+    setCurrentMediaIndex((prev) => (prev + 1) % heroMedia.length)
   }
 
   const prevScreenshot = () => {
-    setCurrentScreenshot((prev) => (prev - 1 + project.screenshots.length) % project.screenshots.length)
+    setCurrentMediaIndex((prev) => (prev - 1 + heroMedia.length) % heroMedia.length)
   }
 
   return (
@@ -115,81 +129,90 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           {/* Screenshots Gallery / Video */}
           <Card className="mb-12 bg-card/50 backdrop-blur-sm border-border/50 overflow-hidden">
             <CardContent className="p-0">
-              {showVideo && project.demoVideo ? (
-                <div className="relative aspect-video">
-                  <iframe
-                    src={project.demoVideo}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm"
-                    onClick={() => setShowVideo(false)}
-                  >
-                    View Screenshots
-                  </Button>
-                </div>
-              ) : (
-                <div className="relative">
+              <div className="relative">
+                {heroMedia.length > 0 && (
+                  <>
+                    {heroMedia[currentMediaIndex]?.type === "image" ? (
+                      <div className="aspect-video overflow-hidden">
+                        <img
+                          src={heroMedia[currentMediaIndex]?.src || "/placeholder.svg"}
+                          alt={heroMedia[currentMediaIndex]?.title || `${project.title} media`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          setSelectedVideo({
+                            title: heroMedia[currentMediaIndex]?.title || "Project video",
+                            url: heroMedia[currentMediaIndex]?.src || "",
+                          })
+                        }
+                        className="w-full aspect-video overflow-hidden relative bg-muted"
+                      >
+                        <img
+                          src={getVideoThumbnail(heroMedia[currentMediaIndex]?.src || "")}
+                          alt={heroMedia[currentMediaIndex]?.title || "Project video"}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
+                            <Play className="w-8 h-8 text-white ml-1" />
+                          </div>
+                        </div>
+                      </button>
+                    )}
+
+                    {/* Navigation buttons */}
+                    <button
+                      onClick={prevScreenshot}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
+                    >
+                      <ChevronLeft size={24} />
+                    </button>
+                    <button
+                      onClick={nextScreenshot}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
+                    >
+                      <ChevronRight size={24} />
+                    </button>
+
+                    {/* Dots indicator */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {heroMedia.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setCurrentMediaIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-colors ${
+                            index === currentMediaIndex ? "bg-primary" : "bg-white/50"
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    {heroMedia[currentMediaIndex]?.type === "image" && currentMediaIndex > 0 && (
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-secondary/80 text-secondary-foreground font-semibold">
+                          Figma Design Prototype
+                        </Badge>
+                      </div>
+                    )}
+
+                    {heroMedia[currentMediaIndex]?.type === "video" && (
+                      <Badge className="absolute top-4 right-4 bg-primary/90 text-primary-foreground">Video</Badge>
+                    )}
+                  </>
+                )}
+                {heroMedia.length === 0 && (
                   <div className="aspect-video overflow-hidden">
                     <img
-                      src={project.screenshots[currentScreenshot] || "/placeholder.svg"}
-                      alt={`${project.title} screenshot ${currentScreenshot + 1}`}
+                      src="/placeholder.svg"
+                      alt={`${project.title} media`}
                       className="w-full h-full object-cover"
                     />
                   </div>
-
-                  {/* Navigation buttons */}
-                  <button
-                    onClick={prevScreenshot}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={nextScreenshot}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 backdrop-blur-sm text-foreground hover:bg-background transition-colors"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-
-                  {/* Dots indicator */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                    {project.screenshots.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentScreenshot(index)}
-                        className={`w-2 h-2 rounded-full transition-colors ${
-                          index === currentScreenshot ? "bg-primary" : "bg-white/50"
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  {currentScreenshot > 0 && (
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-secondary/80 text-secondary-foreground font-semibold">
-                        Figma Design Prototype
-                      </Badge>
-                    </div>
-                  )}
-
-                  {/* Video button */}
-                  {project.demoVideo && (
-                    <Button
-                      size="sm"
-                      className="absolute top-4 right-4 bg-primary hover:bg-primary/90"
-                      onClick={() => setShowVideo(true)}
-                    >
-                      <Play className="w-4 h-4 mr-2" />
-                      Watch Demo
-                    </Button>
-                  )}
-                </div>
-              )}
+                )}
+              </div>
             </CardContent>
           </Card>
 
