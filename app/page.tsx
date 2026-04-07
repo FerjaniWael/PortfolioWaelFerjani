@@ -1,13 +1,32 @@
+"use client"
+
+import type { FormEvent } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Mail, MapPin, Github, GraduationCap, Calendar, Building } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Mail, MapPin, Send, Github, GraduationCap, Calendar, Building } from "lucide-react"
 import { TechIcon } from "@/components/tech-icons"
 import ProjectsSection from "@/components/projects-section"
 import { PortfolioNavigation } from "@/components/portfolio-navigation"
-import ContactForm from "@/components/contact-form"
 
 export default function Portfolio() {
+  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const name = String(formData.get("name") || "").trim()
+    const email = String(formData.get("email") || "").trim()
+    const subject = String(formData.get("subject") || "").trim()
+    const message = String(formData.get("message") || "").trim()
+
+    const fullSubject = `[Portfolio Contact] ${subject}`
+    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent("ferjaniwael20@gmail.com")}&su=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(body)}`
+
+    window.open(gmailComposeUrl, "_blank", "noopener,noreferrer")
+  }
 
   const skillCategories = [
     {
@@ -318,7 +337,46 @@ export default function Portfolio() {
             <Card className="bg-card/50 backdrop-blur-sm border-border/50">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-6 text-foreground">Send a Message</h3>
-                <ContactForm />
+                <form className="space-y-4" onSubmit={handleContactSubmit}>
+                  <div>
+                    <Input
+                      name="name"
+                      placeholder="Your Name"
+                      required
+                      className="bg-background/50 border-border focus:border-primary"
+                    />
+                  </div>
+                  <div>
+                    <Input
+                      name="email"
+                      type="email"
+                      placeholder="Your Email"
+                      required
+                      className="bg-background/50 border-border focus:border-primary"
+                    />
+                  </div>
+                  <div>
+                    <Input
+                      name="subject"
+                      placeholder="Subject"
+                      required
+                      className="bg-background/50 border-border focus:border-primary"
+                    />
+                  </div>
+                  <div>
+                    <Textarea
+                      name="message"
+                      placeholder="Your Message"
+                      rows={4}
+                      required
+                      className="bg-background/50 border-border focus:border-primary resize-none"
+                    />
+                  </div>
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </div>
