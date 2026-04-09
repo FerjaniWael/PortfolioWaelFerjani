@@ -30,12 +30,14 @@ export async function POST(request: Request) {
     }
 
     const gmailUser = process.env.GMAIL_USER || "ferjaniwael40@gmail.com"
-    const gmailAppPassword = process.env.GMAIL_APP_PASSWORD
+    const gmailAppPassword = String(process.env.GMAIL_APP_PASSWORD || process.env.GOOGLE_APP_PASSWORD || "")
+      .replace(/\s+/g, "")
+      .trim()
     const toEmail = process.env.CONTACT_TO_EMAIL || "ferjaniwael20@gmail.com"
 
     if (!gmailAppPassword) {
       return NextResponse.json(
-        { message: "Email service is not configured. Add GMAIL_APP_PASSWORD." },
+        { message: "Email service is not configured. Add GMAIL_APP_PASSWORD or GOOGLE_APP_PASSWORD." },
         { status: 500 },
       )
     }
