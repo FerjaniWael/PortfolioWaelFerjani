@@ -162,14 +162,17 @@ export default function Portfolio() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="grain-overlay min-h-screen bg-background">
       <PortfolioNavigation />
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6">
+      <section id="about" className="section-fade-up px-6 py-24">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-foreground">About Me</h2>
-          <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.24em] text-primary">Profile</p>
+          <h2 className="font-display mb-12 text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+            About Me
+          </h2>
+          <Card className="glass-card rounded-3xl">
             <CardContent className="p-8">
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                 I'm an entry-level software engineer passionate about building efficient, clean code and learning new
@@ -183,7 +186,11 @@ export default function Portfolio() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {["Quick Learner", "Detail-Oriented", "Collaborative", "Driven to Grow"].map((trait) => (
-                  <Badge key={trait} variant="secondary" className="bg-secondary/20 text-secondary-foreground">
+                  <Badge
+                    key={trait}
+                    variant="secondary"
+                    className="rounded-full border border-primary/20 bg-primary/10 text-secondary-foreground"
+                  >
                     {trait}
                   </Badge>
                 ))}
@@ -194,9 +201,12 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-6 bg-muted/30">
+      <section id="skills" className="section-fade-up bg-muted/30 px-6 py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4 text-foreground">Skills & Technologies</h2>
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.24em] text-primary">Toolkit</p>
+          <h2 className="font-display mb-4 text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+            Skills & Technologies
+          </h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             Technologies, frameworks, and tools I work with to build amazing products
           </p>
@@ -204,7 +214,7 @@ export default function Portfolio() {
             {skillCategories.map((category) => (
               <Card
                 key={category.title}
-                className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors"
+                className="glass-card rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
               >
                 <CardContent className="p-6">
                   <h3 className="text-xl font-semibold mb-4 text-primary">{category.title}</h3>
@@ -212,12 +222,12 @@ export default function Portfolio() {
                     {category.skills.map((skill) => (
                       <div
                         key={skill.name}
-                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors group"
+                        className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-muted/50"
                       >
-                        <div className="w-8 h-8 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                        <div className="flex h-8 w-8 items-center justify-center text-primary transition-transform group-hover:scale-110">
                           <TechIcon name={skill.icon} className="w-6 h-6" />
                         </div>
-                        <span className="text-foreground">{skill.name}</span>
+                        <span className="font-medium text-foreground">{skill.name}</span>
                       </div>
                     ))}
                   </div>
@@ -231,18 +241,21 @@ export default function Portfolio() {
       <ProjectsSection />
 
       {/* Experience Section */}
-      <section id="experience" className="py-20 px-6 bg-muted/30">
+      <section id="experience" className="section-fade-up bg-muted/30 px-6 py-24">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-foreground">Experience</h2>
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.24em] text-primary">Journey</p>
+          <h2 className="font-display mb-12 text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+            Experience
+          </h2>
           <div className="space-y-6">
             {experience.map((exp, index) => (
               <Card
                 key={index}
-                className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors"
+                className="glass-card rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
               >
                 <CardContent className="p-6">
                   <div className="flex gap-4">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-16 h-16 rounded-lg bg-muted/50 border border-border overflow-hidden flex items-center justify-center">
                         <img
                           src={exp.logo || "/placeholder.svg"}
@@ -263,7 +276,7 @@ export default function Portfolio() {
                         <Building className="w-4 h-4" />
                         <span className="font-medium">{exp.company}</span>
                       </div>
-                      <p className="text-muted-foreground">{exp.description}</p>
+                      <p className="leading-relaxed text-muted-foreground">{exp.description}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -274,18 +287,21 @@ export default function Portfolio() {
       </section>
 
       {/* Education Section */}
-      <section id="education" className="py-20 px-6">
+      <section id="education" className="section-fade-up px-6 py-24">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12 text-foreground">Education</h2>
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.24em] text-primary">Academics</p>
+          <h2 className="font-display mb-12 text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+            Education
+          </h2>
           <div className="space-y-6">
             {education.map((edu, index) => (
               <Card
                 key={index}
-                className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-colors"
+                className="glass-card rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
               >
                 <CardContent className="p-6">
                   <div className="flex gap-4">
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <div className="w-16 h-16 rounded-lg bg-muted/50 border border-border overflow-hidden flex items-center justify-center">
                         <img
                           src={edu.logo || "/placeholder.svg"}
@@ -310,7 +326,7 @@ export default function Portfolio() {
                         <MapPin className="w-4 h-4" />
                         <span className="text-sm">{edu.location}</span>
                       </div>
-                      <p className="text-muted-foreground">{edu.description}</p>
+                      <p className="leading-relaxed text-muted-foreground">{edu.description}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -321,14 +337,17 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 bg-muted/30">
+      <section id="contact" className="section-fade-up bg-muted/30 px-6 py-24">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-4 text-foreground">Get In Touch</h2>
+          <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.24em] text-primary">Connect</p>
+          <h2 className="font-display mb-4 text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+            Get In Touch
+          </h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
             Have a project in mind or just want to say hello? I'd love to hear from you.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+            <Card className="glass-card rounded-3xl">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-6 text-foreground">Contact Information</h3>
                 <div className="space-y-4">
@@ -363,7 +382,7 @@ export default function Portfolio() {
               </CardContent>
             </Card>
 
-            <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+            <Card className="glass-card rounded-3xl">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-6 text-foreground">Send a Message</h3>
                 <form className="space-y-4" onSubmit={handleContactSubmit}>
@@ -404,7 +423,7 @@ export default function Portfolio() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                    className="h-11 w-full rounded-full bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90"
                   >
                     <Send className="w-4 h-4 mr-2" />
                     {isSubmitting ? "Sending..." : "Send Message"}
@@ -419,7 +438,7 @@ export default function Portfolio() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-border">
+      <footer className="border-t border-border/80 px-6 py-8">
         <div className="max-w-6xl mx-auto text-center text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Wael Ferjani. All rights reserved.</p>
         </div>

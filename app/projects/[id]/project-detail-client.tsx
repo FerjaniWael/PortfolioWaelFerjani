@@ -84,7 +84,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/70 bg-background/75 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <Link
@@ -121,14 +121,15 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-primary">Case Study</p>
+            <h1 className="font-display mb-4 bg-linear-to-r from-primary via-foreground to-accent bg-clip-text text-4xl font-bold tracking-tight text-transparent md:text-5xl">
               {project.title}
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl">{project.shortDescription}</p>
           </div>
 
           {!isProjectVersionManager && (
-            <Card className="mb-12 bg-card/50 backdrop-blur-sm border-border/50 overflow-hidden">
+            <Card className="glass-card mb-12 overflow-hidden rounded-3xl">
               <CardContent className="p-0">
                 <div className="relative">
                   {heroMedia.length > 0 && (
@@ -220,12 +221,12 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
 
           {project.videos && project.videos.length > 0 && (
             <div className="mb-12">
-              <h2 className="text-2xl font-semibold mb-6 text-foreground">Project Videos</h2>
+              <h2 className="font-display mb-6 text-3xl font-semibold tracking-tight text-foreground">Project Videos</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {project.videos.map((video, index) => (
                   <Card
                     key={index}
-                    className="bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all overflow-hidden group cursor-pointer"
+                    className="glass-card group cursor-pointer overflow-hidden rounded-2xl transition-all hover:-translate-y-1 hover:border-primary/40"
                     onClick={() => {
                       if (video.url) {
                         setSelectedVideo(video)
@@ -302,23 +303,23 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             {/* Main content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Description */}
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+              <Card className="glass-card rounded-2xl">
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-4 text-foreground">About This Project</h2>
+                  <h2 className="font-display mb-4 text-2xl font-semibold text-foreground">About This Project</h2>
                   <p className="text-muted-foreground leading-relaxed">{project.fullDescription}</p>
                 </CardContent>
               </Card>
 
               {/* Skills Acquired */}
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+              <Card className="glass-card rounded-2xl">
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-semibold mb-4 text-foreground">Skills Acquired</h2>
+                  <h2 className="font-display mb-4 text-2xl font-semibold text-foreground">Skills Acquired</h2>
                   <div className="flex flex-wrap gap-2">
                     {project.skillsAcquired.map((skill) => (
                       <Badge
                         key={skill}
                         variant="secondary"
-                        className="bg-secondary/20 text-secondary-foreground px-3 py-1"
+                        className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-secondary-foreground"
                       >
                         {skill}
                       </Badge>
@@ -331,9 +332,9 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             {/* Sidebar */}
             <div className="space-y-8">
               {/* Tech Stack */}
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+              <Card className="glass-card rounded-2xl">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-semibold mb-4 text-foreground">Tech Stack</h2>
+                  <h2 className="font-display mb-4 text-xl font-semibold text-foreground">Tech Stack</h2>
                   <div className="grid grid-cols-2 gap-3">
                     {project.tech.map((tech) => (
                       <div
@@ -349,9 +350,9 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
               </Card>
 
               {/* Links */}
-              <Card className="bg-card/50 backdrop-blur-sm border-border/50">
+              <Card className="glass-card rounded-2xl">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-semibold mb-4 text-foreground">Project Links</h2>
+                  <h2 className="font-display mb-4 text-xl font-semibold text-foreground">Project Links</h2>
                   <div className="space-y-3">
                     <Button
                       variant="outline"

@@ -3,82 +3,80 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Updated to modern blue-green (teal/cyan) futuristic palette */
 :root {
-  --background: oklch(0.12 0.02 220); /* Deep ocean blue background */
-  --foreground: oklch(0.95 0.03 180); /* Bright cyan-tinted text */
-  --card: oklch(0.15 0.03 210); /* Dark cards with teal undertone */
-  --card-foreground: oklch(0.95 0.03 180);
-  --popover: oklch(0.13 0.02 215);
-  --popover-foreground: oklch(0.95 0.03 180);
-  --primary: oklch(0.65 0.2 175); /* Vibrant teal/cyan primary */
-  --primary-foreground: oklch(0.1 0.02 220); /* Dark text on primary */
-  --secondary: oklch(0.55 0.15 150); /* Emerald green accent */
-  --secondary-foreground: oklch(0.98 0 0); /* White text on secondary */
-  --muted: oklch(0.35 0.05 210); /* Muted with ocean blue undertone */
-  --muted-foreground: oklch(0.75 0.03 180);
-  --accent: oklch(0.7 0.18 160); /* Bright seafoam accent */
-  --accent-foreground: oklch(0.1 0.02 220);
-  --destructive: oklch(0.6 0.25 25); /* Coral red for errors */
+  --background: oklch(0.985 0.01 95);
+  --foreground: oklch(0.2 0.03 255);
+  --card: oklch(0.995 0.01 95);
+  --card-foreground: oklch(0.2 0.03 255);
+  --popover: oklch(0.995 0.01 95);
+  --popover-foreground: oklch(0.2 0.03 255);
+  --primary: oklch(0.46 0.11 248);
+  --primary-foreground: oklch(0.99 0.01 95);
+  --secondary: oklch(0.91 0.03 240);
+  --secondary-foreground: oklch(0.28 0.05 255);
+  --muted: oklch(0.95 0.02 240);
+  --muted-foreground: oklch(0.5 0.04 252);
+  --accent: oklch(0.78 0.11 82);
+  --accent-foreground: oklch(0.2 0.03 255);
+  --destructive: oklch(0.59 0.2 24);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.28 0.06 200); /* Subtle teal borders */
-  --input: oklch(0.15 0.03 210);
-  --ring: oklch(0.65 0.2 175 / 0.6); /* Cyan focus ring glow */
-  --chart-1: oklch(0.65 0.2 175); /* Teal */
-  --chart-2: oklch(0.6 0.18 150); /* Green */
-  --chart-3: oklch(0.55 0.15 240); /* Blue */
-  --chart-4: oklch(0.7 0.15 130); /* Lime */
-  --chart-5: oklch(0.6 0.12 190); /* Aqua */
-  --radius: 0.625rem;
-  --sidebar: oklch(0.1 0.02 220);
-  --sidebar-foreground: oklch(0.95 0.03 180);
-  --sidebar-primary: oklch(0.65 0.2 175);
-  --sidebar-primary-foreground: oklch(0.1 0.02 220);
-  --sidebar-accent: oklch(0.55 0.15 150);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.28 0.06 200);
-  --sidebar-ring: oklch(0.65 0.2 175 / 0.6);
+  --border: oklch(0.89 0.02 248);
+  --input: oklch(0.99 0.01 95);
+  --ring: oklch(0.46 0.11 248 / 0.45);
+  --chart-1: oklch(0.55 0.13 248);
+  --chart-2: oklch(0.66 0.12 83);
+  --chart-3: oklch(0.58 0.09 193);
+  --chart-4: oklch(0.53 0.12 328);
+  --chart-5: oklch(0.47 0.08 295);
+  --radius: 0.9rem;
+  --sidebar: oklch(0.985 0.01 95);
+  --sidebar-foreground: oklch(0.2 0.03 255);
+  --sidebar-primary: oklch(0.46 0.11 248);
+  --sidebar-primary-foreground: oklch(0.99 0.01 95);
+  --sidebar-accent: oklch(0.91 0.03 240);
+  --sidebar-accent-foreground: oklch(0.28 0.05 255);
+  --sidebar-border: oklch(0.89 0.02 248);
+  --sidebar-ring: oklch(0.46 0.11 248 / 0.45);
 }
 
-/* Updated dark mode with deeper blue-green palette */
 .dark {
-  --background: oklch(0.08 0.02 220); /* Ultra-dark ocean background */
-  --foreground: oklch(0.96 0.04 175); /* Bright cyan text */
-  --card: oklch(0.11 0.04 210); /* Dark cards with teal glow */
-  --card-foreground: oklch(0.96 0.04 175);
-  --popover: oklch(0.09 0.03 215);
-  --popover-foreground: oklch(0.96 0.04 175);
-  --primary: oklch(0.7 0.22 175); /* Brighter cyan for dark mode */
-  --primary-foreground: oklch(0.08 0.02 220);
-  --secondary: oklch(0.6 0.18 150); /* Brighter emerald */
-  --secondary-foreground: oklch(0.08 0.02 220);
-  --muted: oklch(0.25 0.06 210);
-  --muted-foreground: oklch(0.8 0.04 180);
-  --accent: oklch(0.72 0.2 160); /* Bright seafoam */
-  --accent-foreground: oklch(0.08 0.02 220);
-  --destructive: oklch(0.65 0.28 25);
-  --destructive-foreground: oklch(0.96 0.04 175);
-  --border: oklch(0.25 0.08 195); /* Glowing teal borders */
-  --input: oklch(0.11 0.04 210);
-  --ring: oklch(0.7 0.22 175 / 0.8); /* Intense cyan glow */
-  --chart-1: oklch(0.7 0.22 175);
-  --chart-2: oklch(0.65 0.2 150);
-  --chart-3: oklch(0.6 0.18 240);
-  --chart-4: oklch(0.75 0.18 130);
-  --chart-5: oklch(0.65 0.15 190);
-  --sidebar: oklch(0.06 0.02 220);
-  --sidebar-foreground: oklch(0.96 0.04 175);
-  --sidebar-primary: oklch(0.7 0.22 175);
-  --sidebar-primary-foreground: oklch(0.08 0.02 220);
-  --sidebar-accent: oklch(0.6 0.18 150);
-  --sidebar-accent-foreground: oklch(0.08 0.02 220);
-  --sidebar-border: oklch(0.25 0.08 195);
-  --sidebar-ring: oklch(0.7 0.22 175 / 0.8);
+  --background: oklch(0.14 0.02 258);
+  --foreground: oklch(0.95 0.02 100);
+  --card: oklch(0.17 0.02 258);
+  --card-foreground: oklch(0.95 0.02 100);
+  --popover: oklch(0.17 0.02 258);
+  --popover-foreground: oklch(0.95 0.02 100);
+  --primary: oklch(0.72 0.13 255);
+  --primary-foreground: oklch(0.15 0.02 258);
+  --secondary: oklch(0.26 0.03 248);
+  --secondary-foreground: oklch(0.93 0.02 100);
+  --muted: oklch(0.24 0.02 253);
+  --muted-foreground: oklch(0.75 0.03 101);
+  --accent: oklch(0.81 0.13 82);
+  --accent-foreground: oklch(0.15 0.02 258);
+  --destructive: oklch(0.65 0.23 28);
+  --destructive-foreground: oklch(0.95 0.02 100);
+  --border: oklch(0.29 0.03 252);
+  --input: oklch(0.19 0.02 258);
+  --ring: oklch(0.72 0.13 255 / 0.6);
+  --chart-1: oklch(0.72 0.13 255);
+  --chart-2: oklch(0.81 0.13 82);
+  --chart-3: oklch(0.7 0.08 190);
+  --chart-4: oklch(0.71 0.11 14);
+  --chart-5: oklch(0.74 0.11 312);
+  --sidebar: oklch(0.14 0.02 258);
+  --sidebar-foreground: oklch(0.95 0.02 100);
+  --sidebar-primary: oklch(0.72 0.13 255);
+  --sidebar-primary-foreground: oklch(0.15 0.02 258);
+  --sidebar-accent: oklch(0.26 0.03 248);
+  --sidebar-accent-foreground: oklch(0.93 0.02 100);
+  --sidebar-border: oklch(0.29 0.03 252);
+  --sidebar-ring: oklch(0.72 0.13 255 / 0.6);
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono-custom);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -121,25 +119,52 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
-    /* Updated gradient overlays to blue-green tones */
-    background-image: radial-gradient(circle at 20% 80%, oklch(0.2 0.12 175 / 0.25) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, oklch(0.18 0.1 150 / 0.2) 0%, transparent 50%);
+    background-image: radial-gradient(circle at 15% 10%, oklch(0.92 0.06 250 / 0.55) 0%, transparent 38%),
+      radial-gradient(circle at 90% 80%, oklch(0.88 0.08 82 / 0.45) 0%, transparent 35%),
+      linear-gradient(120deg, transparent 0%, oklch(0.96 0.01 95 / 0.65) 50%, transparent 100%);
+    background-attachment: fixed;
   }
 
-  /* Updated glow effects to cyan/teal */
-  .glow-effect {
-    box-shadow: 0 0 20px oklch(0.65 0.2 175 / 0.4);
-    transition: box-shadow 0.3s ease;
+  .dark body {
+    background-image: radial-gradient(circle at 15% 10%, oklch(0.26 0.04 255 / 0.35) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, oklch(0.31 0.05 85 / 0.28) 0%, transparent 40%),
+      linear-gradient(120deg, transparent 0%, oklch(0.18 0.02 258 / 0.7) 50%, transparent 100%);
   }
 
-  .glow-effect:hover {
-    box-shadow: 0 0 30px oklch(0.7 0.22 175 / 0.6);
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display), serif;
   }
 
-  .tech-border {
-    border: 1px solid oklch(0.28 0.08 195);
-    background: linear-gradient(135deg, oklch(0.15 0.04 210) 0%, oklch(0.12 0.03 215) 100%);
+  .glass-card {
+    background: color-mix(in oklab, var(--card) 88%, transparent);
+    border: 1px solid color-mix(in oklab, var(--border) 88%, transparent);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 16px 42px -28px color-mix(in oklab, var(--primary) 35%, transparent);
+  }
+
+  .hero-ring {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 40%, transparent),
+      0 24px 60px -32px color-mix(in oklab, var(--primary) 48%, transparent);
+  }
+
+  .section-fade-up {
+    animation: section-fade-up 0.7s ease-out both;
+  }
+
+  @keyframes section-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

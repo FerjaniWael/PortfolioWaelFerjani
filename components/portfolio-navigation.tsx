@@ -1,8 +1,17 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+const HERO_ORBS = [
+  { left: "8%", top: "22%", delay: "0s", duration: "5s" },
+  { left: "22%", top: "72%", delay: "0.9s", duration: "6s" },
+  { left: "41%", top: "30%", delay: "1.3s", duration: "4.6s" },
+  { left: "61%", top: "68%", delay: "0.4s", duration: "5.4s" },
+  { left: "79%", top: "24%", delay: "1.7s", duration: "6.2s" },
+  { left: "89%", top: "58%", delay: "0.7s", duration: "4.4s" },
+]
 
 export function PortfolioNavigation() {
   const [activeSection, setActiveSection] = useState("hero")
@@ -41,16 +50,21 @@ export function PortfolioNavigation() {
   return (
     <>
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/70 bg-background/75 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-xl font-bold text-primary">Portfolio</div>
+            <button
+              onClick={() => scrollToSection("hero")}
+              className="font-display text-xl tracking-wide text-foreground transition-colors hover:text-primary"
+            >
+              Wael Portfolio
+            </button>
             <div className="hidden md:flex space-x-8">
               {["About", "Skills", "Projects", "Experience", "Education", "Contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                  className={`text-sm font-semibold tracking-wide transition-colors hover:text-primary ${
                     activeSection === item.toLowerCase() ? "text-primary" : "text-muted-foreground"
                   }`}
                 >
@@ -63,15 +77,15 @@ export function PortfolioNavigation() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-32 relative overflow-hidden">
+      <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-32">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5">
+          <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-transparent to-accent/10">
             <div
               className="absolute inset-0"
               style={{
                 backgroundImage: `
-                linear-gradient(rgba(239, 68, 68, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(239, 68, 68, 0.1) 1px, transparent 1px)
+                linear-gradient(color-mix(in oklab, var(--primary) 25%, transparent) 1px, transparent 1px),
+                linear-gradient(90deg, color-mix(in oklab, var(--primary) 25%, transparent) 1px, transparent 1px)
               `,
                 backgroundSize: "50px 50px",
                 animation: "grid-move 20s linear infinite",
@@ -80,20 +94,20 @@ export function PortfolioNavigation() {
           </div>
 
           <div className="absolute inset-0">
-            {[...Array(12)].map((_, i) => (
+            {HERO_ORBS.map((orb, i) => (
               <div
                 key={i}
                 className="absolute animate-pulse"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${3 + Math.random() * 2}s`,
+                  left: orb.left,
+                  top: orb.top,
+                  animationDelay: orb.delay,
+                  animationDuration: orb.duration,
                 }}
               >
                 <div
-                  className="w-2 h-2 bg-primary/30 rounded-full animate-ping"
-                  style={{ animationDelay: `${Math.random() * 2}s` }}
+                  className="h-2 w-2 rounded-full bg-primary/35 animate-ping"
+                  style={{ animationDelay: orb.delay }}
                 />
               </div>
             ))}
@@ -102,9 +116,9 @@ export function PortfolioNavigation() {
           <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1000 1000">
             <defs>
               <linearGradient id="circuit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="rgb(239, 68, 68)" stopOpacity="0.6" />
-                <stop offset="50%" stopColor="rgb(236, 72, 153)" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="rgb(239, 68, 68)" stopOpacity="0.6" />
+                <stop offset="0%" stopColor="rgb(67, 97, 238)" stopOpacity="0.55" />
+                <stop offset="50%" stopColor="rgb(245, 183, 0)" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="rgb(67, 97, 238)" stopOpacity="0.55" />
               </linearGradient>
             </defs>
             <path
@@ -123,12 +137,12 @@ export function PortfolioNavigation() {
               className="animate-pulse"
               style={{ animationDuration: "4s", animationDelay: "1s" }}
             />
-            <circle cx="300" cy="200" r="4" fill="rgb(239, 68, 68)" className="animate-ping" />
+            <circle cx="300" cy="200" r="4" fill="rgb(67, 97, 238)" className="animate-ping" />
             <circle
               cx="600"
               cy="400"
               r="4"
-              fill="rgb(236, 72, 153)"
+              fill="rgb(245, 183, 0)"
               className="animate-ping"
               style={{ animationDelay: "1.5s" }}
             />
@@ -136,32 +150,54 @@ export function PortfolioNavigation() {
               cx="500"
               cy="300"
               r="4"
-              fill="rgb(239, 68, 68)"
+              fill="rgb(67, 97, 238)"
               className="animate-ping"
               style={{ animationDelay: "2s" }}
             />
           </svg>
 
           <div
-            className={`max-w-4xl mx-auto text-center transition-all duration-1000 relative z-10 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`section-fade-up relative z-10 mx-auto max-w-4xl text-center transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
           >
             <div className="mb-16 pt-32">
-              <div className="w-48 h-48 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-primary to-secondary p-1 overflow-hidden shadow-xl">
-                <div className="w-full h-full rounded-2xl bg-background overflow-hidden">
+              <div className="hero-ring mx-auto mb-8 h-48 w-48 overflow-hidden rounded-3xl bg-linear-to-br from-primary to-accent p-1 shadow-xl">
+                <div className="h-full w-full overflow-hidden rounded-3xl bg-background">
                   <img src="/images/cv.png" alt="Wael Ferjani" className="w-full h-full object-cover" />
                 </div>
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+
+              <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+                <Sparkles className="h-4 w-4" />
+                Open to Software Engineering Opportunities
+              </div>
+
+              <h1 className="font-display mb-4 bg-linear-to-r from-primary via-foreground to-accent bg-clip-text text-5xl font-bold tracking-tight text-transparent md:text-7xl">
                 Wael Ferjani
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-2">Software Engineer</p>
+              <p className="mb-2 text-xl font-semibold text-muted-foreground md:text-2xl">Software Engineer</p>
+              <p className="mx-auto mt-6 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground md:text-lg">
+                I design and build full-stack products with a focus on clean architecture, practical business impact,
+                and reliable delivery.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm">
+                <span className="rounded-full border border-border bg-card/70 px-4 py-2 font-semibold text-foreground">
+                  Full-Stack Engineering
+                </span>
+                <span className="rounded-full border border-border bg-card/70 px-4 py-2 font-semibold text-foreground">
+                  React • Spring Boot • DevOps
+                </span>
+                <span className="rounded-full border border-border bg-card/70 px-4 py-2 font-semibold text-foreground">
+                  Tunisia
+                </span>
+              </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button
                 size="lg"
                 onClick={() => scrollToSection("projects")}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="h-12 rounded-full bg-primary px-8 text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/90"
               >
                 View My Work
               </Button>
@@ -169,7 +205,7 @@ export function PortfolioNavigation() {
                 size="lg"
                 variant="outline"
                 onClick={() => scrollToSection("contact")}
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                className="h-12 rounded-full border-primary/60 bg-card/70 px-8 text-primary hover:bg-primary hover:text-primary-foreground"
               >
                 Get In Touch
               </Button>
