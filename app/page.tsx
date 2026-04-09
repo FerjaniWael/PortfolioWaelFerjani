@@ -1,6 +1,6 @@
 "use client"
 
-import type { FormEvent } from "react"
+import { useState, type FormEvent } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -12,20 +12,49 @@ import ProjectsSection from "@/components/projects-section"
 import { PortfolioNavigation } from "@/components/portfolio-navigation"
 
 export default function Portfolio() {
-  const handleContactSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const formData = new FormData(event.currentTarget)
-    const name = String(formData.get("name") || "").trim()
-    const email = String(formData.get("email") || "").trim()
-    const subject = String(formData.get("subject") || "").trim()
-    const message = String(formData.get("message") || "").trim()
+    setIsSubmitting(true)
+    setSubmitMessage(null)
+    setSubmitError(null)
 
-    const fullSubject = `[Portfolio Contact] ${subject}`
-    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent("ferjaniwael20@gmail.com")}&su=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(body)}`
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const payload = {
+      name: String(formData.get("name") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      subject: String(formData.get("subject") || "").trim(),
+      message: String(formData.get("message") || "").trim(),
+    }
 
-    window.open(gmailComposeUrl, "_blank", "noopener,noreferrer")
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+
+      const data = (await response.json()) as { message?: string }
+
+      if (!response.ok) {
+        setSubmitError(data.message || "Failed to send message. Please try again.")
+        return
+      }
+
+      setSubmitMessage(data.message || "Your message has been sent successfully.")
+      form.reset()
+    } catch {
+      setSubmitError("Network error. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const skillCategories = [
@@ -372,10 +401,16 @@ export default function Portfolio() {
                       className="bg-background/50 border-border focus:border-primary resize-none"
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                  >
                     <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
+                  {submitMessage ? <p className="text-sm text-green-600">{submitMessage}</p> : null}
+                  {submitError ? <p className="text-sm text-red-600">{submitError}</p> : null}
                 </form>
               </CardContent>
             </Card>
