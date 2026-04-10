@@ -84,35 +84,6 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    id: "docsharepeak",
-    title: "DocSharePeak",
-    shortDescription: "Document sharing and collaboration platform with media-rich project showcase and live demo.",
-    fullDescription:
-      "DocSharePeak is a collaborative platform for securely sharing, organizing, and reviewing documents. The project includes a modern dashboard, document previews, role-based access patterns, and a responsive UX optimized for daily professional workflows. This showcase includes screenshots, demo videos, and a live demo link.",
-    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js"],
-    skillsAcquired: [
-      "Product-focused frontend architecture",
-      "Document workflow UX",
-      "Role-based access design",
-      "Responsive dashboard development",
-      "Media showcase integration",
-    ],
-    screenshots: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    videos: [
-      {
-        title: "DocSharePeak Overview",
-        url: "https://www.youtube.com/embed/aqz-KE-bpKQ",
-      },
-      {
-        title: "DocSharePeak Workflow Demo",
-        url: "https://www.youtube.com/embed/ScMzIvxBSi4",
-      },
-    ],
-    github: "",
-    live: "https://docsharepeak.com",
-    featured: true,
-  },
-  {
     id: "generation-bus",
     title: "School Bus Management System",
     shortDescription: "Web application for managing school bus schedules and routes.",
